@@ -11,6 +11,9 @@ import home from './../asset/home.jpg';
 import { FaArrowCircleRight, FaSearch } from "react-icons/fa";
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
   body, html {
     margin: 0;
     padding: 0;
@@ -33,11 +36,13 @@ const Container = styled.div`
   font-family: 'Poppins', sans-serif;
   color: ${theme.text};
   width: 100%;
+  margin: 0;
+  padding: 0;
 `;
 
 const ContentWrapper = styled.div`
   max-width: 100%; 
-  margin: 0 auto;
+  margin: 0;
   width: 100%;
   display: flex;
   flex-direction: ${props => props.$flexDir || 'row'};
@@ -46,7 +51,6 @@ const ContentWrapper = styled.div`
   gap: ${props => props.$gap || '0px'};
   
   @media (max-width: 768px) {
-    /* Enable horizontal scrolling for the hero slider */
     flex-direction: ${props => props.$isHero ? 'row' : 'column'};
     overflow-x: ${props => props.$isHero ? 'auto' : 'visible'};
     scroll-snap-type: ${props => props.$isHero ? 'x mandatory' : 'none'};
@@ -59,6 +63,7 @@ const ContentWrapper = styled.div`
 const Hero = styled.section`
   background: ${theme.white};
   padding: 0; 
+  margin: 0;
 `;
 
 const Heading = styled.h2`
@@ -128,10 +133,9 @@ const Case = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0px;
-  width: 100%;
+  width: 40%;
   
   @media (max-width: 768px) {
-    /* display: contents makes the children behave as direct children of the slider */
     display: contents; 
   }
 `;
@@ -140,6 +144,7 @@ const Section = styled.section`
   padding: 5rem 0;
   text-align: center;
   background-color: ${props => props.$bg || theme.lightGray};
+  width: 100%;
 `;
 
 const Divider = styled.div`
@@ -161,7 +166,7 @@ const CarCard = styled(motion.div)`
   padding: 2.5rem;
   background: white;
   text-align: left;
-  border: 1px solid #f0f0f0;
+  border: none;
 
   img {
     width: 100%;
@@ -192,10 +197,11 @@ const SecondaryBtn = styled(Button)`
 `;
 
 const CTA = styled.section`
-  padding: 6rem 2rem;
+  padding: 6rem 0;
   text-align: center;
   background-color: ${theme.primary};
   color: ${theme.white};
+  width: 100%;
 `;
 
 export default function Home() {
@@ -293,7 +299,7 @@ export default function Home() {
 
         <CTA>
           <ContentWrapper $flexDir="column">
-            <Heading style={{color: 'white', fontSize:'1.2rem'}}>
+            <Heading style={{color: 'white', fontSize:'1.2rem', padding: '0 1rem'}}>
               Get first dibs on limited edition releases and backstage content delivered straight to your inbox.
             </Heading>
             <div style={{ display: 'flex', gap: '1.5rem', marginTop: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
