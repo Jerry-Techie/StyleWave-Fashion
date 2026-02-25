@@ -30,9 +30,9 @@ const ContentWrapper = styled.div`
   align-items: ${props => props.$align || 'center'};
   gap: ${props => props.$gap || '2px'};
   
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 20px;
   }
 `;
 
@@ -45,6 +45,9 @@ const Container = styled.div`
 const Hero = styled.section`
   background: ${theme.white};
   padding: 4rem 2rem;
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
 `;
 
 const Heading = styled.h2`
@@ -83,9 +86,9 @@ const ImageBlock = styled(motion.div)`
     background-color: rgba(0, 0, 0, 0.3);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 992px) {
     width: 100% !important;
-    height: 350px !important;
+    height: ${props => props.$mobileHeight || '400px'} !important;
   }
 `;
 
@@ -101,6 +104,13 @@ const ImageBlockContent = styled.div`
     font-size: 1.3rem;
     margin: 0.5rem 0 0 0;
     text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    ${Heading} {
+        font-size: 1.1rem !important;
+    }
   }
 `;
 
@@ -125,6 +135,9 @@ const Section = styled.section`
   padding: 5rem 2rem;
   text-align: center;
   background-color: ${props => props.$bg || theme.lightGray};
+  @media (max-width: 768px) {
+    padding: 3rem 1rem;
+  }
 `;
 
 const Divider = styled.div`
@@ -137,7 +150,7 @@ const Divider = styled.div`
 
 const CarGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2.5rem;
   width: 100%;
 `;
@@ -205,6 +218,9 @@ const CTA = styled.section`
   text-align: center;
   background-color: ${theme.primary};
   color: ${theme.white};
+  @media (max-width: 768px) {
+    padding: 4rem 1rem;
+  }
 `;
 
 export default function Home() {
@@ -238,11 +254,12 @@ export default function Home() {
             </ImageBlockContent> 
           </ImageBlock>
           
-          <Case style={{ width: '40%' }}>
+          <Case style={{ width: 'auto', flex: '1' }}>
             <ImageBlock 
               $bg={Img2} 
               $width="100%" 
               $height="260px"
+              $mobileHeight="250px"
               whileHover={{ scale: 1.01 }}
             >
               <ImageBlockContent>
@@ -254,6 +271,7 @@ export default function Home() {
               $bg={Img3} 
               $width="100%" 
               $height="260px"
+              $mobileHeight="250px"
               whileHover={{ scale: 1.01 }}
             >
               <ImageBlockContent>
@@ -291,7 +309,7 @@ export default function Home() {
 
       <Section $bg={theme.white}>
         <ContentWrapper $justify="space-between" $gap="4rem">
-          <div style={{ textAlign: 'left', flex: 1 }}>
+          <div style={{ textAlign: 'left', flex: 1, minWidth: '300px' }}>
             <Heading style={{textAlign: 'left'}}>About Us</Heading>
             <Divider style={{ margin: '0 0 2rem 0' }} />
             <p style={{ lineHeight: '1.8', fontSize: '1.1rem' }}>
@@ -310,6 +328,7 @@ export default function Home() {
             $bg={home} 
             $width="450px" 
             $height="520px" 
+            $mobileHeight="350px"
             style={{ borderRadius: '16px' }}
           />
         </ContentWrapper>
@@ -320,7 +339,7 @@ export default function Home() {
           <Heading style={{ color: theme.white, fontSize: '1.2rem', maxWidth: '600px' }}>
             Get first dibs on limited edition releases and backstage content delivered straight to your inbox.
           </Heading>
-          <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem', flexWrap: 'wrap' }}>
             <PrimaryBtn style={{ background: theme.white, color: theme.black }}>
               Order Yours Now
             </PrimaryBtn>
