@@ -46,11 +46,13 @@ const ContentWrapper = styled.div`
   gap: ${props => props.$gap || '0px'};
   
   @media (max-width: 768px) {
+    /* Enable horizontal scrolling for the hero slider */
     flex-direction: ${props => props.$isHero ? 'row' : 'column'};
     overflow-x: ${props => props.$isHero ? 'auto' : 'visible'};
     scroll-snap-type: ${props => props.$isHero ? 'x mandatory' : 'none'};
     &::-webkit-scrollbar { display: none; }
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
 `;
 
@@ -92,8 +94,9 @@ const ImageBlock = styled(motion.div)`
   }
 
   @media (max-width: 768px) {
-    width: 100vw !important; /* Full width for auto-slide */
-    height: 450px !important;
+    width: 100vw !important; 
+    height: 550px !important;
+    flex-basis: 100vw;
   }
 `;
 
@@ -126,9 +129,10 @@ const Case = styled.div`
   flex-direction: column;
   gap: 0px;
   width: 100%;
+  
   @media (max-width: 768px) {
-    flex-direction: row;
-    width: auto;
+    /* display: contents makes the children behave as direct children of the slider */
+    display: contents; 
   }
 `;
 
@@ -200,25 +204,18 @@ export default function Home() {
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) return;
-
-    let scrollAmount = 0;
-    const step = window.innerWidth; 
-    const maxScroll = step * 2; 
+    let currentSlide = 0;
+    const totalSlides = 3; 
 
     const autoPlay = setInterval(() => {
       if (window.innerWidth <= 768) {
-        if (scrollAmount >= maxScroll) {
-          scrollAmount = 0;
-        } else {
-          scrollAmount += step;
-        }
+        currentSlide = (currentSlide + 1) % totalSlides;
         slider.scrollTo({
-          left: scrollAmount,
+          left: currentSlide * window.innerWidth,
           behavior: 'smooth'
         });
       }
-    }, 2000); 
-
+    }, 3000);
     return () => clearInterval(autoPlay);
   }, []);
 
@@ -233,7 +230,6 @@ export default function Home() {
       <GlobalStyle />
       <Container>
         <Hero>
-          {/* Attached sliderRef here */}
           <ContentWrapper ref={sliderRef} $gap="0px" $isHero>
             <ImageBlock $bg={Img1} $width="60%" $height="550px">
               <ImageBlockContent>
@@ -241,8 +237,8 @@ export default function Home() {
                 <Heading>Lets Turn You To a Magnificient Beauty</Heading>
               </ImageBlockContent> 
             </ImageBlock>
-            
-            <Case style={{width: '40%'}}>
+
+            <Case>
               <ImageBlock $bg={Img2} $width="100%" $height="275px">
                 <ImageBlockContent>
                   <Tag>Music</Tag>
